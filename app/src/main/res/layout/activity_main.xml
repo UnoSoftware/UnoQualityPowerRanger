@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/background_Login"
+        android:layout_width="1021dp"
+        android:layout_height="1023dp"
+        android:src="@drawable/background_lineas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.44" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="108dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/claqueta"
+        app:srcCompat="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/claqueta"
+        android:layout_width="138dp"
+        android:layout_height="91dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.155"
+        app:srcCompat="@drawable/claqueta" />
+
+    <EditText
+        android:id="@+id/id_Email"
+        android:layout_width="222dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="232dp"
+        android:background="@drawable/rectangle"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:text="@string/str_email"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/claqueta" />
+
+    <EditText
+        android:id="@+id/id_Password"
+        android:layout_width="222dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rectangle"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:text="@string/str_password"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_Email" />
+
+    <Button
+        android:id="@+id/id_inicio"
+        android:layout_width="222dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FBE7EC"
+        android:fontFamily="monospace"
+        android:onClick="login"
+        android:shadowColor="#3E0808"
+        android:shadowDx="40"
+        android:text="LOGIN"
+        android:textAlignment="center"
+        android:textColor="#610505"
+        android:textStyle="bold"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_Password"
+        tools:shadowDy="40" />
+
+    <Button
+        android:id="@+id/id_registro"
+        android:layout_width="222dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FBE7EC"
+        android:fontFamily="monospace"
+        android:onClick="register"
+        android:shadowColor="#3E0808"
+        android:shadowDx="40"
+        android:text="register"
+        android:textAlignment="center"
+        android:textColor="#610505"
+        android:textStyle="bold"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/id_inicio"
+        tools:shadowDy="40" />
+
+    <ImageView
+        android:id="@+id/palomitas"
+        android:layout_width="100dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="742dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/background_Login"
+        app:layout_constraintVertical_bias="0.957"
+        app:srcCompat="@drawable/palomitas" />
+
+    <ImageView
+        android:id="@+id/pc"
+        android:layout_width="122dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="742dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/background_Login"
+        app:layout_constraintVertical_bias="0.957"
+        app:srcCompat="@drawable/portatil" />
+
+    <ImageView
+        android:id="@+id/gafas3D"
+        android:layout_width="100dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="742dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.383"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/background_Login"
+        app:layout_constraintVertical_bias="0.957"
+        app:srcCompat="@drawable/gafas3d" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="100dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="742dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.678"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/background_Login"
+        app:layout_constraintVertical_bias="0.962"
+        app:srcCompat="@drawable/butaca" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

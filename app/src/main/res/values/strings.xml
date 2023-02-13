@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PS_G8</string>
+    <string name="id_Usuario">Usuario</string>
+    <string name="id_Password">Password</string>
+    <string name="id_inicioSesion">Iniciar Sesión</string>
+    <string name="id_registro">Registrar</string>
+    <string name="str_register">Register</string>
+    <string name="str_email">  Email</string>
+    <string name="str_password">  Password</string>
+</resources>
