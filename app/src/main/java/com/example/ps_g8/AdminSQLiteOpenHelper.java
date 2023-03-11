@@ -34,71 +34,27 @@ public final class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         this.agregarPelis(BaseDatos);
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
+    private void BD(String i, String nombre, String año, String sinopsis, SQLiteDatabase BaseDatos){
+        ContentValues reg = new ContentValues();
+
+        reg.put("id", i);
+        reg.put("nombre", nombre);
+        reg.put("año", año);
+        reg.put("sinopsis", sinopsis);
+
+        BaseDatos.insert("pelicula", null, reg);
     }
+
 
     public void agregarPelis(SQLiteDatabase BaseDatos) {
         ContentValues reg = new ContentValues();
-        for (int i = 1; i <= 7; i++) {
-            switch (i) {
-                case 1:
-                    reg.put("id", String.valueOf(i));
-                    reg.put("nombre", "SPIDERMAN");
-                    reg.put("año", "2002");
-                    reg.put("sinopsis", "sinopsis de la peli 1");
-                    BaseDatos.insert("pelicula", null, reg);
-                    break;
-
-                case 2:
-                    reg.put("id", String.valueOf(i));
-                    reg.put("nombre", "TITANIC");
-                    reg.put("año", "1997");
-                    reg.put("sinopsis", "sinopsis de la peli 2");
-                    BaseDatos.insert("pelicula", null, reg);
-                    break;
-
-                case 3:
-                    reg.put("id", String.valueOf(i));
-                    reg.put("nombre", "STAR WARS");
-                    reg.put("año", "1977");
-                    reg.put("sinopsis", "sinopsis de la peli 3");
-                    BaseDatos.insert("pelicula", null, reg);
-                    break;
-
-                case 4:
-                    reg.put("id", String.valueOf(i));
-                    reg.put("nombre", "EL HOMBRE DE ACERO");
-                    reg.put("año", "2013");
-                    reg.put("sinopsis", "sinopsis de la peli 4");
-                    BaseDatos.insert("pelicula", null, reg);
-                    break;
-
-                case 5:
-                    reg.put("id", String.valueOf(i));
-                    reg.put("nombre", "JUMANJI");
-                    reg.put("año", "1995");
-                    reg.put("sinopsis", "sinopsis de la peli 5");
-                    BaseDatos.insert("pelicula", null, reg);
-                    break;
-
-                case 6:
-                    reg.put("id", String.valueOf(i));
-                    reg.put("nombre", "SIN PERDÓN");
-                    reg.put("año", "1992");
-                    reg.put("sinopsis", "sinopsis de la peli 6");
-                    BaseDatos.insert("pelicula", null, reg);
-                    break;
-
-                case 7:
-                    reg.put("id", String.valueOf(i));
-                    reg.put("nombre", "MATRIX");
-                    reg.put("año", "1999");
-                    reg.put("sinopsis", "sinopsis de la peli 7");
-                    BaseDatos.insert("pelicula", null, reg);
-                    break;
-            }
-        }
+        BD("1","SPIDERMAN","2002",  "sinopsis de la peli 1");
+        BD("2","TITANIC","1997","sinopsis de la peli 2");
+        BD("3","STAR WARS", "1977","sinopsis de la peli 3");
+        BD("4","EL HOMBRE DE ACERO", "2013","sinopsis de la peli 4");
+        BD("5","JUMANJI","1995","sinopsis de la peli 5");
+        BD("6","SIN PERDÓN", "1992","sinopsis de la peli 6");
+        BD("7", "MATRIX", "1999","sinopsis de la peli 7");
     }
 }

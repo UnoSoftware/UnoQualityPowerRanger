@@ -90,50 +90,40 @@ public class MainActivity2 extends AppCompatActivity{
         ContentValues cv = new ContentValues();
         cv.put("usuario", email);
         cv.put("id", id);
+
         if (c.moveToFirst()) {
             if (tipo == 1) {
+                cv.put("gusta", c.getInt(c.getColumnIndex("gusta")));
                 if (c.getInt(c.getColumnIndex("visto")) == 0) {
                     cv.put("visto", 1);
-                    cv.put("gusta", c.getInt(c.getColumnIndex("gusta")));
-                    BaseDatos.update("relacion", cv, "id =" + id + " and usuario =?", new String[]{getIntent().getExtras().getString("usuario")});
                     tgbtn.setImageResource(R.drawable.ic_baseline_remove_red_eye_24);
-                } else {
+                }
+                else {
                     cv.put("visto", 0);
-                    cv.put("gusta", c.getInt(c.getColumnIndex("gusta")));
-                    BaseDatos.update("relacion", cv, "id =" + id + " and usuario =?", new String[]{getIntent().getExtras().getString("usuario")});
                     tgbtn.setImageResource(R.drawable.ic_baseline_not_interested_24);
                 }
-            } else if (tipo == 0) {
+            }
+
+            else if (tipo == 0) {
+                cv.put("visto", c.getInt(c.getColumnIndex("visto")));
                 if (c.getInt(c.getColumnIndex("gusta")) == 0) {
                     cv.put("gusta", 1);
-                    cv.put("visto", c.getInt(c.getColumnIndex("visto")));
-                    BaseDatos.update("relacion", cv, "id =" + id + " and usuario =?", new String[]{getIntent().getExtras().getString("usuario")});
                     tgbtn.setImageResource(R.drawable.ic_baseline_favorite_24);
-                } else {
+                }
+                else {
                     cv.put("gusta", 0);
-                    cv.put("visto", c.getInt(c.getColumnIndex("visto")));
-                    BaseDatos.update("relacion", cv, "id =" + id + " and usuario =?", new String[]{getIntent().getExtras().getString("usuario")});
                     tgbtn.setImageResource(R.drawable.ic_baseline_favorite_border_24);
                 }
             }
+
+            BaseDatos.update("relacion", cv, "id =" + id + " and usuario =?", new String[]{getIntent().getExtras().getString("usuario")});
         }
+
+
         c.close();
         BaseDatos.close();
-
     }
 
-    /*public List<Pelicula> GetData() {
-        lst=new ArrayList<>();
-        lst.add(new Pelicula(1,R.drawable.spiderman,"SPIDERMAN","2002", false, false));
-        lst.add(new Pelicula(2,R.drawable.titanic,"TITANIC","1997", false, false));
-        lst.add(new Pelicula(3,R.drawable.starwars,"STAR WARS","1977", false, false));
-        lst.add(new Pelicula(4,R.drawable.elhombredeacero,"EL HOMBRE DE ACERO","2013", false, false));
-        lst.add(new Pelicula(5,R.drawable.jumanji,"JUMANJI","1995", false, false));
-        lst.add(new Pelicula(6,R.drawable.sinperdon,"SIN PERDÓN","1992", false, false));
-        lst.add(new Pelicula(7,R.drawable.matrix,"MATRIX","1999", false, false));
-
-        return lst;
-    }*/
 
     @SuppressLint("Range")
     public List<Pelicula> GetData() {
