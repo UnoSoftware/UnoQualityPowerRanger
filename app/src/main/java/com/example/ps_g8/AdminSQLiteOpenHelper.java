@@ -34,6 +34,11 @@ public final class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
         this.agregarPelis(BaseDatos);
     }
 
+    @Override
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
+    }
+
 
     private void BD(String i, String nombre, String año, String sinopsis, SQLiteDatabase BaseDatos){
         ContentValues reg = new ContentValues();
@@ -48,13 +53,12 @@ public final class AdminSQLiteOpenHelper extends SQLiteOpenHelper {
 
 
     public void agregarPelis(SQLiteDatabase BaseDatos) {
-        ContentValues reg = new ContentValues();
-        BD("1","SPIDERMAN","2002",  "sinopsis de la peli 1");
-        BD("2","TITANIC","1997","sinopsis de la peli 2");
-        BD("3","STAR WARS", "1977","sinopsis de la peli 3");
-        BD("4","EL HOMBRE DE ACERO", "2013","sinopsis de la peli 4");
-        BD("5","JUMANJI","1995","sinopsis de la peli 5");
-        BD("6","SIN PERDÓN", "1992","sinopsis de la peli 6");
-        BD("7", "MATRIX", "1999","sinopsis de la peli 7");
+        BD("1","SPIDERMAN","2002",  "sinopsis de la peli 1", BaseDatos);
+        BD("2","TITANIC","1997","sinopsis de la peli 2", BaseDatos);
+        BD("3","STAR WARS", "1977","sinopsis de la peli 3", BaseDatos);
+        BD("4","EL HOMBRE DE ACERO", "2013","sinopsis de la peli 4", BaseDatos);
+        BD("5","JUMANJI","1995","sinopsis de la peli 5", BaseDatos);
+        BD("6","SIN PERDÓN", "1992","sinopsis de la peli 6", BaseDatos);
+        BD("7", "MATRIX", "1999","sinopsis de la peli 7", BaseDatos);
     }
 }
