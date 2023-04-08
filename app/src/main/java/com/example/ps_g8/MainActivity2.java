@@ -139,7 +139,7 @@ public class MainActivity2 extends AppCompatActivity{
                 @SuppressLint("Range") String sinopsis = c.getString(c.getColumnIndex("sinopsis"));
                 @SuppressLint("Range") String año = c.getString(c.getColumnIndex("año"));
                 @SuppressLint("Range") int id = c.getInt(c.getColumnIndex("id"));
-                Cursor c2 = BaseDatos.rawQuery("select * from relacion where id =" + id + " and usuario =?", new String[]{getIntent().getExtras().getString("usuario")});
+                Cursor c2 = BaseDatos.rawQuery("select * from relacion where id =" + id + " and usuario =?", new String[]{getIntent().getExtras().getString("usuario")});  // Preguntar el miercoles
                 if(c2.moveToFirst() && c2.getCount() >= 1){
                     gusta = c2.getInt(c2.getColumnIndex("gusta"));
                     visto = c2.getInt(c2.getColumnIndex("visto"));
