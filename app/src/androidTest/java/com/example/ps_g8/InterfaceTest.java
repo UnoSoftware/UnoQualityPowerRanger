@@ -29,6 +29,7 @@ public class InterfaceTest {
 
     @BeforeClass // Crear la base de datos antes de ejecutar los tests llamando a AdminSQLiteOpenHelper
     public static void setUp() {
+        // Crear el usuario de prueba que es al que se le pasará la clave en MainActivity2
         try (AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(InstrumentationRegistry.getInstrumentation().getTargetContext(), "administracion", null, 1)) {
             admin.getWritableDatabase();
         } catch (Exception e) {
