@@ -8,8 +8,11 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.junit.Assert.assertEquals;
 
+import android.content.Intent;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.widget.ImageButton;
 
 import androidx.test.core.app.ActivityScenario;
@@ -22,19 +25,33 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class InterfaceTest {
 
-    @BeforeClass // Crear la base de datos antes de ejecutar los tests llamando a AdminSQLiteOpenHelper
+    @BeforeClass
     public static void setUp() {
-        // Crear el usuario de prueba que es al que se le pasará la clave en MainActivity2
-        try (AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(InstrumentationRegistry.getInstrumentation().getTargetContext(), "administracion", null, 1)) {
-            admin.getWritableDatabase();
+    // Crear la base de datos de prueba
+        try (AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(InstrumentationRegistry.getInstrumentation().getTargetContext(), "Administracion", null, 1)) {
+            SQLiteDatabase db = admin.getWritableDatabase();
+            admin.agregarPelis(db);
+            db.execSQL("INSERT INTO usuario (email, contraseña) VALUES ('user1@example.com', '1234');");
+            db.execSQL("INSERT INTO relacion (id, usuario, gusta, visto) VALUES (1, 'user1@example.com', 0, 0);");
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // Mock intent para que el getintent de la clase no falle
+        Intent intent = Mockito.mock(Intent.class);
+        // Mock bundle hace falta para que el getextras de la clase no falle
+        Bundle bundle = Mockito.mock(Bundle.class);
+        // Ponemos el email del usuario en el bundle, la clave que necesita la clase es "usuario"
+        Mockito.when(bundle.getString("usuario")).thenReturn("user1@example.com");
+        // Poner el bundle en el intent
+        Mockito.when(intent.getExtras()).thenReturn(bundle);
+
     }
 
     @Rule
@@ -43,56 +60,50 @@ public class InterfaceTest {
     @Test
     public void testMeGustaButtonChangesIcon() {
         // Seleccionar la referencia del botón
-        ActivityScenario<MainActivity2> btn = activityRule.getScenario().onActivity(new ActivityScenario.ActivityAction<MainActivity2>() {
-            @Override
-            public void perform(MainActivity2 activity) {
-                Resources res = InstrumentationRegistry.getInstrumentation().getTargetContext().getResources();
-                int expectedIcon = res.getIdentifier("ic_baseline_favorite_border_24", "drawable", "com.example.ps_g8");
-                Drawable expectedDrawable = res.getDrawable(expectedIcon);
-                // Comprobar que el botón tiene el icono correcto (sin rellenar) al principio
-                ImageButton btn = activity.findViewById(R.id.imageButton1);
-                assertEquals(expectedDrawable, btn.getDrawable());
-                // Hacer click en el botón
-                onView(withId(R.id.imageButton1)).perform(click());
-                // Comprobar que el botón tiene el icono correcto (rellenado) al final
-                expectedIcon = res.getIdentifier("ic_baseline_favorite_24", "drawable", "com.example.ps_g8");
-                expectedDrawable = res.getDrawable(expectedIcon);
-                assertEquals(expectedDrawable, btn.getDrawable());
-                // Hacer click en el botón otra vez
-                onView(withId(R.id.imageButton1)).perform(click());
-                // Comprobar que el botón tiene el icono correcto (sin rellenar) al final
-                expectedIcon = res.getIdentifier("ic_baseline_favorite_border_24", "drawable", "com.example.ps_g8");
-                expectedDrawable = res.getDrawable(expectedIcon);
-                assertEquals(expectedDrawable, btn.getDrawable());
-            }
+        ActivityScenario<MainActivity2> btn = activityRule.getScenario().onActivity(activity -> {
+            Resources res = InstrumentationRegistry.getInstrumentation().getTargetContext().getResources();
+            int expectedIcon = res.getIdentifier("ic_baseline_favorite_border_24", "drawable", "com.example.ps_g8");
+            Drawable expectedDrawable = res.getDrawable(expectedIcon);
+            // Comprobar que el botón tiene el icono correcto (sin rellenar) al principio
+            ImageButton btn1 = activity.findViewById(R.id.imageButton1);
+            assertEquals(expectedDrawable, btn1.getDrawable());
+            // Hacer click en el botón
+            onView(withId(R.id.imageButton1)).perform(click());
+            // Comprobar que el botón tiene el icono correcto (rellenado) al final
+            expectedIcon = res.getIdentifier("ic_baseline_favorite_24", "drawable", "com.example.ps_g8");
+            expectedDrawable = res.getDrawable(expectedIcon);
+            assertEquals(expectedDrawable, btn1.getDrawable());
+            // Hacer click en el botón otra vez
+            onView(withId(R.id.imageButton1)).perform(click());
+            // Comprobar que el botón tiene el icono correcto (sin rellenar) al final
+            expectedIcon = res.getIdentifier("ic_baseline_favorite_border_24", "drawable", "com.example.ps_g8");
+            expectedDrawable = res.getDrawable(expectedIcon);
+            assertEquals(expectedDrawable, btn1.getDrawable());
         });
     }
 
     @Test
     public void testVistoButtonChangesIcon() {
         // Seleccionar la referencia del botón
-        ActivityScenario<MainActivity2> btn = activityRule.getScenario().onActivity(new ActivityScenario.ActivityAction<MainActivity2>() {
-            @Override
-            public void perform(MainActivity2 activity) {
-                Resources res = InstrumentationRegistry.getInstrumentation().getTargetContext().getResources();
-                int expectedIcon = res.getIdentifier("ic_baseline_not_interested_eye_24", "drawable", "com.example.ps_g8");
-                Drawable expectedDrawable = res.getDrawable(expectedIcon);
-                // Comprobar que el botón tiene el icono correcto (no visto) al principio
-                ImageButton btn = activity.findViewById(R.id.imageButton2);
-                assertEquals(expectedDrawable, btn.getDrawable());
-                // Hacer click en el botón
-                onView(withId(R.id.imageButton2)).perform(click());
-                // Comprobar que el botón tiene el icono correcto (visto) al final
-                expectedIcon = res.getIdentifier("ic_baseline_remove_red_eye_24", "drawable", "com.example.ps_g8");
-                expectedDrawable = res.getDrawable(expectedIcon);
-                assertEquals(expectedDrawable, btn.getDrawable());
-                // Hacer click en el botón otra vez
-                onView(withId(R.id.imageButton2)).perform(click());
-                // Comprobar que el botón tiene el icono correcto (no visto) al final
-                expectedIcon = res.getIdentifier("ic_baseline_not_interested_eye_24", "drawable", "com.example.ps_g8");
-                expectedDrawable = res.getDrawable(expectedIcon);
-                assertEquals(expectedDrawable, btn.getDrawable());
-            }
+        ActivityScenario<MainActivity2> btn = activityRule.getScenario().onActivity(activity -> {
+            Resources res = InstrumentationRegistry.getInstrumentation().getTargetContext().getResources();
+            int expectedIcon = res.getIdentifier("ic_baseline_not_interested_eye_24", "drawable", "com.example.ps_g8");
+            Drawable expectedDrawable = res.getDrawable(expectedIcon);
+            // Comprobar que el botón tiene el icono correcto (no visto) al principio
+            ImageButton btn1 = activity.findViewById(R.id.imageButton2);
+            assertEquals(expectedDrawable, btn1.getDrawable());
+            // Hacer click en el botón
+            onView(withId(R.id.imageButton2)).perform(click());
+            // Comprobar que el botón tiene el icono correcto (visto) al final
+            expectedIcon = res.getIdentifier("ic_baseline_remove_red_eye_24", "drawable", "com.example.ps_g8");
+            expectedDrawable = res.getDrawable(expectedIcon);
+            assertEquals(expectedDrawable, btn1.getDrawable());
+            // Hacer click en el botón otra vez
+            onView(withId(R.id.imageButton2)).perform(click());
+            // Comprobar que el botón tiene el icono correcto (no visto) al final
+            expectedIcon = res.getIdentifier("ic_baseline_not_interested_eye_24", "drawable", "com.example.ps_g8");
+            expectedDrawable = res.getDrawable(expectedIcon);
+            assertEquals(expectedDrawable, btn1.getDrawable());
         });
     }
 
