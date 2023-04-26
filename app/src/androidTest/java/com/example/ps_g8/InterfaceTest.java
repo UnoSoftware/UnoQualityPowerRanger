@@ -7,7 +7,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,10 +24,10 @@ import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.BeforeClass;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -33,29 +35,28 @@ public class InterfaceTest {
 
     @BeforeClass
     public static void setUp() {
-    // Crear la base de datos de prueba
-        try (AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(InstrumentationRegistry.getInstrumentation().getTargetContext(), "Administracion", null, 1)) {
+        // Crear la base de datos de prueba
+        try {
+            Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+            AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(context, "Administracion", null, 1);
             SQLiteDatabase db = admin.getWritableDatabase();
             admin.agregarPelis(db);
+            // Delete all users
+            db.execSQL("DELETE FROM usuario;");
+            // Insert test user
             db.execSQL("INSERT INTO usuario (email, contraseña) VALUES ('user1@example.com', '1234');");
             db.execSQL("INSERT INTO relacion (id, usuario, gusta, visto) VALUES (1, 'user1@example.com', 0, 0);");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // Mock intent para que el getintent de la clase no falle
-        Intent intent = Mockito.mock(Intent.class);
-        // Mock bundle hace falta para que el getextras de la clase no falle
-        Bundle bundle = Mockito.mock(Bundle.class);
-        // Ponemos el email del usuario en el bundle, la clave que necesita la clase es "usuario"
-        Mockito.when(bundle.getString("usuario")).thenReturn("user1@example.com");
-        // Poner el bundle en el intent
-        Mockito.when(intent.getExtras()).thenReturn(bundle);
-
     }
 
+
+
+
     @Rule
-    public ActivityScenarioRule<MainActivity2> activityRule = new ActivityScenarioRule<>(MainActivity2.class);
+    // Asignar el intent con el que se inicia la actividad
+    public ActivityScenarioRule<MainActivity2> activityRule = new ActivityScenarioRule<MainActivity2>(new Intent(InstrumentationRegistry.getInstrumentation().getTargetContext(), MainActivity2.class).putExtra("usuario", "user1@example.com"));
 
     @Test
     public void testMeGustaButtonChangesIcon() {
@@ -109,8 +110,6 @@ public class InterfaceTest {
 
     @Test
     public void testMenuDesplegable() {
-        // Iniciar la actividad
-        ActivityScenario<MainActivity2> scenario = ActivityScenario.launch(MainActivity2.class);
         // Hacer click en el botón de opciones
         onView(withId(R.menu.acordeon_opciones)).perform(click());
         // Comprobar que se despliega el menú
