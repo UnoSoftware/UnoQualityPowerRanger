@@ -7,21 +7,39 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private EditText et_password, et_email;
+    private ImageView showPassButton;
+    Boolean checked = false;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         et_email = (EditText) findViewById(R.id.id_Email);
         et_password = (EditText) findViewById(R.id.id_Password);
+        showPassButton = (ImageView) findViewById(R.id.showPassButton);
+        showPassButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checked){
+                    et_password.setInputType(129);
+                    checked = false;
+                } else{
+                    et_password.setInputType(InputType.TYPE_CLASS_TEXT);
+                    checked = true;
+                }
+            }
+        });
     }
 
     public void register(View view) {

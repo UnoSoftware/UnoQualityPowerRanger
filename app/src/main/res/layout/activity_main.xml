@@ -169,4 +169,15 @@
         app:layout_constraintVertical_bias="0.962"
         app:srcCompat="@drawable/butaca" />
 
+    <ImageView
+        android:id="@+id/showPassButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/id_Password"
+        app:layout_constraintEnd_toEndOf="@+id/id_Password"
+        app:layout_constraintTop_toTopOf="@+id/id_Password"
+        app:srcCompat="@drawable/ic_baseline_remove_red_eye_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
