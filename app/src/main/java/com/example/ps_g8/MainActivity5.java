@@ -85,7 +85,7 @@ public class MainActivity5 extends AppCompatActivity {
         }
     }
 
-    private void AñadirRelacion(String email) {
+    public void AñadirRelacion(String email) {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "Administracion", null, 1);
         SQLiteDatabase BaseDatos = admin.getWritableDatabase();
         Cursor c = BaseDatos.rawQuery("select * from pelicula", null);
