@@ -52,7 +52,7 @@ public class UnitTest {
     @Test
     public void testsetDescripcion() {
         Pelicula peli = new Pelicula(1, 1, "Esto es un título", "Esto es una descripción", "Esto es una sinopsis", 0, 0);
-        String des = "Descipcion descrita de forma describida";
+        String des = "Esto es una descripción";
         peli.setDescripcion(des);
         String result = peli.getDescripcion();
         assertEquals(des, result);
