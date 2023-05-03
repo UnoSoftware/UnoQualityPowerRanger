@@ -28,12 +28,16 @@ public class testTDD {
     @Test
     public void testShowPasswordTDD(){
         ActivityScenario<MainActivity> scenario = activityRule.getScenario();
+        onView(withId(R.id.showPassButton)).perform(click());
         scenario.onActivity(activity -> {
-            onView(withId(R.id.showPassButton)).perform(click());
             EditText editText = activity.findViewById(R.id.id_Password);
             int inputType = editText.getInputType();
             assertEquals(InputType.TYPE_CLASS_TEXT, inputType);
-            onView(withId(R.id.showPassButton)).perform(click());
+        });
+        onView(withId(R.id.showPassButton)).perform(click());
+        scenario.onActivity(activity -> {
+            EditText editText = activity.findViewById(R.id.id_Password);
+            int inputType = editText.getInputType();
             inputType = editText.getInputType();
             assertEquals(129, inputType);
         });
