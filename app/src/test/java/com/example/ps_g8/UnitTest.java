@@ -25,7 +25,7 @@ public class UnitTest {
     public void testgetTitulo() {
         Pelicula peli = new Pelicula(1, 1, "Esto es un título", "Esto es una descripción", "Esto es una sinopsis", 0, 0);
         String tit = "Esto es un título";
-        result = peli.getTitulo();
+        String result = peli.getTitulo();
         assertEquals(tit, result);
     }
 
@@ -35,7 +35,7 @@ public class UnitTest {
         Pelicula peli = new Pelicula(1, 1, "Esto es un título", "Esto es una descripción", "Esto es una sinopsis", 0, 0);
         String tit = "Labella y la bestia";
         peli.setTitulo(tit);
-        result = peli.getTitulo();
+        String result = peli.getTitulo();
         assertEquals(tit, result);
     }
 
@@ -44,7 +44,7 @@ public class UnitTest {
     public void testgetDescripcion() {
         Pelicula peli = new Pelicula(1, 1, "Esto es un título", "Esto es una descripción", "Esto es una sinopsis", 0, 0);
         String des = "Esto es una descripción";
-        result = peli.getDescripcion();
+        String result = peli.getDescripcion();
         assertEquals(des, result);
     }
 
@@ -54,7 +54,7 @@ public class UnitTest {
         Pelicula peli = new Pelicula(1, 1, "Esto es un título", "Esto es una descripción", "Esto es una sinopsis", 0, 0);
         String des = "Descipcion descrita de forma describida";
         peli.setDescripcion(des);
-        result = peli.getDescripcion();
+        String result = peli.getDescripcion();
         assertEquals(des, result);
     }
 }
